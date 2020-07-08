@@ -1,0 +1,44 @@
+<!doctypehtml>
+<html lang=en-us>
+<head>
+    <meta charset=utf-8>
+    <meta content="text/html; charset=utf-8" http-equiv=Content-Type>
+    <title>Gearoenix WWR Demo</title>
+</head>
+<body>
+<canvas class=emscripten id=canvas oncontextmenu=event.preventDefault() tabindex=-1></canvas>
+<script>
+    const statusElement = document.getElementById("status");
+    const progressElement = document.getElementById("progress");
+    const spinnerElement = document.getElementById("spinner");
+    Module = {
+        preRun: [],
+        postRun: [],
+        print: function (t) {
+            arguments.length > 1 && (t = Array.prototype.slice.call(arguments).join(" "));
+            console.log(t);
+        },
+        printErr: function (e) {
+            arguments.length > 1 && (e = Array.prototype.slice.call(arguments).join(" "));
+            console.error(e);
+        },
+        canvas: function () {
+            const e = document.getElementById("canvas");
+            e.addEventListener("webglcontextlost", function (e) {
+                alert("WebGL context lost. You will need to reload the page.");
+                e.preventDefault()
+            }, !1);
+            return e;
+        }(),
+        setStatus: function (e) {},
+        totalDependencies: 0,
+        monitorRunDependencies: function (e) {},
+    };
+    Module.setStatus("Downloading...");
+    window.onerror = function (e) {
+        alert("Exception thrown, see JavaScript console");
+    }
+</script>
+<script async src=GearoenixDemoWorldWideRacing.js></script>
+</body>
+</html>
